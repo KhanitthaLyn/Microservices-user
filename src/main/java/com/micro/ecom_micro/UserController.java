@@ -2,10 +2,9 @@ package com.micro.ecom_micro;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +21,31 @@ public class UserController {
 //        this.userService = userService;
 //    }
 
-    @GetMapping("/api/users")
-    public List<User> getAllUsers() {
-        return userService.fetchAllUsers();
+    //@GetMapping("/api/users")
+    //@RequestMapping(value ="/api/users", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(userService.fetchAllUsers(), HttpStatus.OK);
     }
 
+    @GetMapping("/api/users/{id}")
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return userService.fetchUser(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+        }
+
     @PostMapping("/api/users")
-    public String createUser(@RequestBody User user) {
+    public ResponseEntity<String> createUser(@RequestBody User user) {
         userService.addUser(user);
-        return "User Added";
+        return ResponseEntity.ok("User Added");
+    }
+
+    @PutMapping("/api/users/{id}")
+    public ResponseEntity<String> updateUser(@RequestBody User updatedUser,
+                                             @PathVariable Long id) {
+        boolean updated = userService.updateUser(id, updatedUser);
+        if (updated)
+            return ResponseEntity.ok("User Updated");
+        return ResponseEntity.notFound().build();
     }
 }

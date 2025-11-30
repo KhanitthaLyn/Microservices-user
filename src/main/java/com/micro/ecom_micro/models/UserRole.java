@@ -1,4 +1,6 @@
 package com.micro.ecom_micro.models;
 
-public class UserRole {
+public enum UserRole {
+    CUSTOMER,
+    ADMIN
 }

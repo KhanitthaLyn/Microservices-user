@@ -1,4 +1,5 @@
 package com.micro.ecom_micro.models;
 
-public class OrderStatus {
+public enum OrderStatus {
+    PENDING, COMPLETED, CANCELLED, SHIPPED, DELIVERED
 }

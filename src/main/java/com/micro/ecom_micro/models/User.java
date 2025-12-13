@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-@Entity(name= "user_table")
+@Entity
+@Table(name= "user_table")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +20,7 @@ public class User {
     private String lastName;
     private String email;
     private String phoneNumber;
+
     private UserRole role = UserRole.CUSTOMER;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

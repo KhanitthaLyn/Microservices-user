@@ -3,9 +3,9 @@ spring:
   application:
     name: ecom-micro
   datasource:
-    url: jdbc:postgresql://localhost:5432/ecom-microDB
-    username: ecom-micro
-    password: ecom-micro
+    url: jdbc:postgresql://localhost:5433/ecom-microDB
+    username: mydb_micro
+    password: mydb_micro
   jpa:
     database: POSTGRESQL
     show-sql: true
